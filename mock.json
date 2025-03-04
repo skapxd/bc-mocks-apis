@@ -1,61 +1,228 @@
 {
-  "$schema": "./mock.schema.json",
+  "$schema": "https://raw.githubusercontent.com/skapxd/mock-api-express/refs/heads/main/mock.schema.json",
   "mocks": [
     {
       "method": "POST",
-      "path": "/person",
+      "path": "/v2/sales-services/customer/relationship-management/customer-acquisition-management/acquisitions/profile-customer",
       "responses": [
         {
           "in": "body",
           "where": {
-            "id": 1
+            "data.identification.number": "0"
           },
           "response": {
-            "id": "1",
-            "name": "Jhon Doe",
-            "age": "33"
+            "meta": {
+              "_systemId": "AW1286",
+              "_messageId": "a4bbf19a-bbd2-44ac-8b79-ec737b8c8941",
+              "_version": 1,
+              "_requestDate": "2012-11-22T13:00:00.000Z",
+              "_service": "CustomerAcquisition - Profiling",
+              "_operation": "profile-customer"
+            },
+            "data": {
+              "actionCode": "2",
+              "actionName": "Apertura Producto"
+            }
           }
         },
         {
           "in": "body",
           "where": {
-            "id": 2
+            "data.identification.number": "1"
           },
           "response": {
-            "id": "2",
-            "name": "Jane Doe",
-            "age": "28"
+            "meta": {
+              "_systemId": "AW1286",
+              "_messageId": "c4e6bd04-5149-11e7-b114-b2f933d5fe66",
+              "_version": "1",
+              "_requestDate": "2017-01-24T05:00:00.000Z",
+              "_service": "CustomerAcquisition - Information",
+              "_operation": "retrieve-scenario-fields"
+            },
+            "status": 400,
+            "title": "Bad Resquest",
+            "errors": [
+              {
+                "code": "SA404",
+                "title": "Cliente SIN vinculación activa",
+                "detail": "El cliente no cuenta con una solicitud de vinculación/actualización activa."
+              }
+            ]
           }
         },
         {
-          "response": {
-            "message": "Respuesta por defecto, no se encontró coincidencia con 'where'"
-          }
-        }
-      ]
-    },
-    {
-      "method": "GET",
-      "path": "/videos/:id",
-      "responses": [
-        {
-          "in": "param",
+          "in": "body",
           "where": {
-            "id": 1
+            "data.identification.number": "2"
           },
           "response": {
-            "id": 1,
-            "name": "Mock testing"
+            "meta": {
+              "_systemId": "AW1286",
+              "_messageId": "c4e6bd04-5149-11e7-b114-b2f933d5fe66",
+              "_version": "1",
+              "_requestDate": "2017-01-24T05:00:00.000Z",
+              "_service": "CustomerAcquisition - Information",
+              "_operation": "retrieve-scenario-fields"
+            },
+            "status": 401,
+            "title": "Unauthorized",
+            "errors": [
+              {
+                "code": "SA401",
+                "title": "El consumidor no tiene acceso a la información solicitada",
+                "detail": "El consumidor no tiene acceso a la información solicitada"
+              }
+            ]
           }
         },
         {
-          "in": "param",
+          "in": "body",
           "where": {
-            "id": 2
+            "data.identification.number": "3"
           },
           "response": {
-            "id": 2,
-            "name": "Playwrite testing"
+            "meta": {
+              "_systemId": "AW1286",
+              "_messageId": "c4e6bd04-5149-11e7-b114-b2f933d5fe66",
+              "_version": "1",
+              "_requestDate": "2017-01-24T05:00:00.000Z",
+              "_service": "CustomerAcquisition - Information",
+              "_operation": "retrieve-scenario-fields"
+            },
+            "status": 404,
+            "title": "Not Found",
+            "errors": [
+              {
+                "code": "BP12700891",
+                "title": "el cliente no tiene cuentas del tipo solicitado",
+                "detail": "el cliente no tiene cuentas del tipo solicitado"
+              }
+            ]
+          }
+        },
+        {
+          "in": "body",
+          "where": {
+            "data.identification.number": "4"
+          },
+          "response": {
+            "meta": {
+              "_systemId": "AW1286",
+              "_messageId": "c4e6bd04-5149-11e7-b114-b2f933d5fe66",
+              "_version": "1",
+              "_requestDate": "2017-01-24T05:00:00.000Z",
+              "_service": "CustomerAcquisition - Information",
+              "_operation": "retrieve-scenario-fields"
+            },
+            "status": 409,
+            "title": "Conflict",
+            "errors": [
+              {
+                "code": "BP12700871",
+                "title": "el beneficiario se encuentra en lista de control",
+                "detail": "el beneficiario se encuentra en lista de control"
+              }
+            ]
+          }
+        },
+        {
+          "in": "body",
+          "where": {
+            "data.identification.number": "5"
+          },
+          "response": {
+            "meta": {
+              "_systemId": "AW1286",
+              "_messageId": "c4e6bd04-5149-11e7-b114-b2f933d5fe66",
+              "_version": "1",
+              "_requestDate": "2017-01-24T05:00:00.000Z",
+              "_service": "CustomerAcquisition - Information",
+              "_operation": "retrieve-scenario-fields"
+            },
+            "status": 500,
+            "title": "Internal Server Error",
+            "errors": [
+              {
+                "code": "SP500",
+                "title": "Ha ocurrido un error interno controlado en el servidor.",
+                "detail": "Ha ocurrido un error interno controlado en el servidor."
+              }
+            ]
+          }
+        },
+        {
+          "in": "body",
+          "where": {
+            "data.identification.number": "6"
+          },
+          "response": {
+            "meta": {
+              "_systemId": "AW1286",
+              "_messageId": "c4e6bd04-5149-11e7-b114-b2f933d5fe66",
+              "_version": "1",
+              "_requestDate": "2017-01-24T05:00:00.000Z",
+              "_service": "CustomerAcquisition - Information",
+              "_operation": "retrieve-scenario-fields"
+            },
+            "status": 502,
+            "title": "Bad Gateway",
+            "errors": [
+              {
+                "code": "SP502",
+                "title": "El mensaje de respuesta recibido del servidor es inválido",
+                "detail": "El mensaje de respuesta recibido del servidor es inválido"
+              }
+            ]
+          }
+        },
+        {
+          "in": "body",
+          "where": {
+            "data.identification.number": "7"
+          },
+          "response": {
+            "meta": {
+              "_systemId": "AW1286",
+              "_messageId": "c4e6bd04-5149-11e7-b114-b2f933d5fe66",
+              "_version": "1",
+              "_requestDate": "2017-01-24T05:00:00.000Z",
+              "_service": "CustomerAcquisition - Information",
+              "_operation": "retrieve-scenario-fields"
+            },
+            "status": 503,
+            "title": "Service Unavailable",
+            "errors": [
+              {
+                "code": "SP503",
+                "title": "Por problemas tecnicos su transaccion no pudo atenderse en estos momentos, por favor intente mas tarde",
+                "detail": "Por problemas tecnicos su transaccion no pudo atenderse en estos momentos, por favor intente mas tarde"
+              }
+            ]
+          }
+        },
+        {
+          "in": "body",
+          "where": {
+            "data.identification.number": "8"
+          },
+          "response": {
+            "meta": {
+              "_systemId": "AW1286",
+              "_messageId": "c4e6bd04-5149-11e7-b114-b2f933d5fe66",
+              "_version": "1",
+              "_requestDate": "2017-01-24T05:00:00.000Z",
+              "_service": "CustomerAcquisition - Information",
+              "_operation": "retrieve-scenario-fields"
+            },
+            "status": 504,
+            "title": "Gateway Timeout",
+            "errors": [
+              {
+                "code": "SP504",
+                "title": "El proveedor no respondió en tiempo esperado",
+                "detail": "El proveedor no respondió en tiempo esperado"
+              }
+            ]
           }
         }
       ]
