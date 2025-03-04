@@ -10,6 +10,7 @@
           "where": {
             "data.identification.number": "0"
           },
+          "status": "200",
           "response": {
             "meta": {
               "_systemId": "AW1286",
@@ -30,6 +31,7 @@
           "where": {
             "data.identification.number": "1"
           },
+          "status": "400",
           "response": {
             "meta": {
               "_systemId": "AW1286",
@@ -55,6 +57,7 @@
           "where": {
             "data.identification.number": "2"
           },
+          "status": "401",
           "response": {
             "meta": {
               "_systemId": "AW1286",
@@ -80,6 +83,7 @@
           "where": {
             "data.identification.number": "3"
           },
+          "status": "404",
           "response": {
             "meta": {
               "_systemId": "AW1286",
@@ -105,6 +109,7 @@
           "where": {
             "data.identification.number": "4"
           },
+          "status": "409",
           "response": {
             "meta": {
               "_systemId": "AW1286",
@@ -130,6 +135,7 @@
           "where": {
             "data.identification.number": "5"
           },
+          "status": "500",
           "response": {
             "meta": {
               "_systemId": "AW1286",
@@ -155,6 +161,7 @@
           "where": {
             "data.identification.number": "6"
           },
+          "status": 502,
           "response": {
             "meta": {
               "_systemId": "AW1286",
@@ -180,6 +187,7 @@
           "where": {
             "data.identification.number": "7"
           },
+          "status": "503",
           "response": {
             "meta": {
               "_systemId": "AW1286",
@@ -205,6 +213,7 @@
           "where": {
             "data.identification.number": "8"
           },
+          "status": "504",
           "response": {
             "meta": {
               "_systemId": "AW1286",
@@ -221,6 +230,188 @@
                 "code": "SP504",
                 "title": "El proveedor no respondió en tiempo esperado",
                 "detail": "El proveedor no respondió en tiempo esperado"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v3/sales-services/customer/relationship-management/customer-acquisition-security-validation/control-lists-management/customers/validate-control-lists",
+      "responses": [
+        {
+          "in": "body",
+          "where": {
+            "data.customer.identification.number": "0"
+          },
+          "status": "200",
+          "response": {
+            "meta": {
+              "_messageId": "uuid-placeholder",
+              "_requestDateTime": "2025-03-04T12:00:00.000Z",
+              "_applicationId": "acxff62e-6f12-42de-9012-3e7304418abd"
+            },
+            "data": {
+              "alerts": "3",
+              "message": "Potencial cliente no está en listas de control, puede continuar con el proceso de vinculación",
+              "state": "Vigente",
+              "category": "69,68"
+            }
+          }
+        },
+        {
+          "in": "body",
+          "where": {
+            "data.customer.identification.number": "1"
+          },
+          "status": "400",
+          "response": {
+            "meta": {
+              "_messageId": "uuid-placeholder",
+              "_requestDateTime": "2025-03-04T12:00:00.000Z",
+              "_applicationId": "acxff62e-6f12-42de-9012-3e7304418abd"
+            },
+            "status": 400,
+            "title": "Bad Request",
+            "errors": [
+              {
+                "code": "BVNT1",
+                "detail": "El cliente no cuenta con una solicitud de vinculación/actualización activa."
+              },
+              {
+                "code": "BVNT2",
+                "detail": "Descripción adicional del error"
+              }
+            ]
+          }
+        },
+        {
+          "in": "body",
+          "where": {
+            "data.customer.identification.number": "2"
+          },
+          "status": "401",
+          "response": {
+            "meta": {
+              "_messageId": "uuid-placeholder",
+              "_requestDateTime": "2025-03-04T12:00:00.000Z",
+              "_applicationId": "acxff62e-6f12-42de-9012-3e7304418abd"
+            },
+            "status": 401,
+            "title": "Unauthorized",
+            "errors": [
+              {
+                "code": "BVNT2",
+                "detail": "El apikey no está presente en la petición o es incorrecto"
+              },
+              {
+                "code": "BVNT3",
+                "detail": "Descripción adicional del error"
+              }
+            ]
+          }
+        },
+        {
+          "in": "body",
+          "where": {
+            "data.customer.identification.number": "3"
+          },
+          "status": "500",
+          "response": {
+            "meta": {
+              "_messageId": "uuid-placeholder",
+              "_requestDateTime": "2025-03-04T12:00:00.000Z",
+              "_applicationId": "acxff62e-6f12-42de-9012-3e7304418abd"
+            },
+            "status": 500,
+            "title": "Internal Server Error",
+            "errors": [
+              {
+                "code": "BVNT3",
+                "detail": "Error interno del servidor. Intente de nuevo más tarde."
+              },
+              {
+                "code": "BVNT4",
+                "detail": "Descripción adicional del error"
+              }
+            ]
+          }
+        },
+        {
+          "in": "body",
+          "where": {
+            "data.customer.identification.number": "4"
+          },
+          "status": "502",
+          "response": {
+            "meta": {
+              "_messageId": "uuid-placeholder",
+              "_requestDateTime": "2025-03-04T12:00:00.000Z",
+              "_applicationId": "acxff62e-6f12-42de-9012-3e7304418abd"
+            },
+            "status": 502,
+            "title": "Service Temporarily Unavailable",
+            "errors": [
+              {
+                "code": "BVNT4",
+                "detail": "El servidor tiene un error temporal y no pudo completar la solicitud. Inténtalo de nuevo más tarde."
+              },
+              {
+                "code": "BVNT5",
+                "detail": "Descripción adicional del error"
+              }
+            ]
+          }
+        },
+        {
+          "in": "body",
+          "where": {
+            "data.customer.identification.number": "5"
+          },
+          "status": "503",
+          "response": {
+            "meta": {
+              "_messageId": "uuid-placeholder",
+              "_requestDateTime": "2025-03-04T12:00:00.000Z",
+              "_applicationId": "acxff62e-6f12-42de-9012-3e7304418abd"
+            },
+            "status": 503,
+            "title": "Service Not Available",
+            "errors": [
+              {
+                "code": "BVNT5",
+                "detail": "El servicio no está disponible temporalmente. Intente de nuevo más tarde."
+              },
+              {
+                "code": "BVNT6",
+                "detail": "Descripción adicional del error"
+              }
+            ]
+          }
+        },
+        {
+          "in": "body",
+          "where": {
+            "data.customer.identification.number": "6"
+          },
+          "status": "400",
+          "response": {
+            "meta": {
+              "_messageId": "uuid-placeholder",
+              "_requestDateTime": "2025-03-04T12:00:00.000Z",
+              "_applicationId": "acxff62e-6f12-42de-9012-3e7304418abd"
+            },
+            "status": 400,
+            "title": "Unknown Error",
+            "errors": [
+              {
+                "code": "BVNT6",
+                "detail": "Se recibió un valor de type no esperado."
+              },
+              {
+                "code": "BVNT7",
+                "detail": "Descripción adicional del error"
               }
             ]
           }
