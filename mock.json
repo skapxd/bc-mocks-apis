@@ -417,6 +417,138 @@
           }
         }
       ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/risk-compliance/models/customer-behavior/customer/actions/check-control-list",
+      "responses": [
+        {
+          "in": "body",
+          "where": { "data[0].customerDocumentId": "0" },
+          "status": "200",
+          "response": {
+            "meta": {
+              "_messageId": "uuid-success-200",
+              "_version": "1.0",
+              "_requestDate": "2025-03-07T12:00:00.000Z"
+            },
+            "data": [
+              {
+                "header": { "type": "ControlList", "id": "cl-123" },
+                "status": { "code": "0000", "description": "Exitoso" },
+                "system": "AW29352_Prometeo",
+                "product": "Prometeo",
+                "customerDocumentType": "CC",
+                "customerDocumentId": "0",
+                "customerFullName": "Juan Pepe Perez",
+                "customerType": "N",
+                "thirdPartyControl": "Cliente",
+                "customerStatus": "A",
+                "state": "Vigente",
+                "alerts": "2",
+                "message": "Consulta exitosa",
+                "categories": "35",
+                "ofacMessageOther": "CON"
+              }
+            ]
+          }
+        },
+        {
+          "in": "body",
+          "where": { "data[0].customerDocumentId": "1" },
+          "status": "400",
+          "response": {
+            "meta": {
+              "_messageId": "uuid-failure-400",
+              "_version": "1.0",
+              "_requestDate": "2025-03-07T12:00:00.000Z"
+            },
+            "errors": [
+              {
+                "code": "BP400",
+                "title": "Solicitud incorrecta",
+                "detail": "La solicitud no pudo ser entendida o hacen falta parámetros requeridos."
+              }
+            ]
+          }
+        },
+        {
+          "in": "body",
+          "where": { "data[0].customerDocumentId": "2" },
+          "status": "401",
+          "response": {
+            "meta": {
+              "_messageId": "uuid-failure-401",
+              "_version": "1.0",
+              "_requestDate": "2025-03-07T12:00:00.000Z"
+            },
+            "errors": [
+              {
+                "code": "BP401",
+                "title": "No autorizado",
+                "detail": "La autorización ha fallado o el usuario no tiene permisos para la operación solicitada."
+              }
+            ]
+          }
+        },
+        {
+          "in": "body",
+          "where": { "data[0].customerDocumentId": "3" },
+          "status": "404",
+          "response": {
+            "meta": {
+              "_messageId": "uuid-failure-404",
+              "_version": "1.0",
+              "_requestDate": "2025-03-07T12:00:00.000Z"
+            },
+            "errors": [
+              {
+                "code": "BP404",
+                "title": "No encontrado",
+                "detail": "El recurso solicitado no fue encontrado por el sistema."
+              }
+            ]
+          }
+        },
+        {
+          "in": "body",
+          "where": { "data[0].customerDocumentId": "4" },
+          "status": "500",
+          "response": {
+            "meta": {
+              "_messageId": "uuid-failure-500",
+              "_version": "1.0",
+              "_requestDate": "2025-03-07T12:00:00.000Z"
+            },
+            "errors": [
+              {
+                "code": "BP500",
+                "title": "Error Interno",
+                "detail": "Error interno del servidor. Intente de nuevo más tarde."
+              }
+            ]
+          }
+        },
+        {
+          "in": "body",
+          "where": { "data[0].customerDocumentId": "5" },
+          "status": "503",
+          "response": {
+            "meta": {
+              "_messageId": "uuid-failure-503",
+              "_version": "1.0",
+              "_requestDate": "2025-03-07T12:00:00.000Z"
+            },
+            "errors": [
+              {
+                "code": "BP503",
+                "title": "Servicio No Disponible",
+                "detail": "El servicio no está disponible temporalmente. Intente de nuevo más tarde."
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }

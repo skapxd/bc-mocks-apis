@@ -1,0 +1,536 @@
+swagger: '2.0'
+info:
+  x-ibm-name: customer-check-control-list
+  title: Customer - Check Control List
+  version: 2.0.4
+  description: API que permite listar los detalles de un cliente en Listas de Control.
+  contact:
+    name: Bancolombia API Working Group
+    email: soporteapisinternas@bancolombia.com.co
+    url: https:/developer.grupobancolombia.com.co/contact
+schemes:
+  - https
+host: $(catalog.host)
+basePath: /v2/risk-compliance/models/customer-behavior
+securityDefinitions:
+  ClientId:
+    type: apiKey
+    description: Identificacion de la aplicacion consumidora usando el client_id
+    in: header
+    name: Client-Id
+    x-key-type: client_id
+  ClientSecret:
+    type: apiKey
+    description: Secreto de la aplicación consumidora o client_secret
+    in: header
+    name: Client-Secret
+    x-key-type: client_secret
+x-ibm-configuration:
+  testable: true
+  enforced: true
+  cors:
+    enabled: true
+  phase: realized
+  catalogs:
+    testing:
+      properties:
+        endpointBroker: https://10.8.74.103:3300/ESB/SOAP/Default
+        tlsProfile: apic-tls-profile-otras-funciones-de-apoyo-on-premises:1.0.0
+        catalogName: testing
+        hostName: gw-otras-funciones-de-apoyo.apps.ocpqa.ambientesbc.lab
+    production:
+      properties:
+        endpointBroker: https://esbpro.bancolombia.corp:3300/ESB/SOAP/Default
+        tlsProfile: apic-tls-profile-otras-funciones-de-apoyo-on-premises:1.0.0
+        catalogName: production
+        hostName: gw-otras-funciones-de-apoyo.apps.ocpprod.bancolombia.corp
+    development:
+      properties:
+        tlsProfile: apic-tls-profile-otras-funciones-de-apoyo-on-premises:1.0.0
+        catalogName: development
+        hostName: gw-otras-funciones-de-apoyo.apps.ocpdes.ambientesbc.lab
+        endpointBroker: https://10.8.74.103:3300/ESB/SOAP/Default
+    sb:
+      properties:
+        endpointBroker: https://integracion-int-qa.apps.ambientesbc.lab/
+        tlsProfile: apic-tls-profile-cluster-eks-integracion-sandbox:1.0.0
+        catalogName: sb
+        hostName: gw-sandbox-qa.apps.ambientesbc.lab
+  buffering: true
+  type: rest
+paths:
+  /customer/actions/check-control-list:
+    post:
+      responses:
+        '200':
+          description: Consulta Exitosa
+          schema:
+            $ref: '#/definitions/successResponse'
+          x-ibm-languages:
+            description:
+              en: Success. Resource has been found
+        '400':
+          description: >-
+            La solicitud no pudo ser entendida o hacen falta parámetros
+            requeridos.
+          x-ibm-languages:
+            description:
+              en: >-
+                The request could not be understood or required parameters were
+                missing
+          schema:
+            $ref: '#/definitions/failure'
+        '401':
+          description: >-
+            La autorización ha fallado o el usuario no tiene permisos para la
+            operación solicitada.
+          schema:
+            $ref: '#/definitions/failure'
+        '404':
+          description: Recurso solicitado no fue encontrado por el sistema
+          x-ibm-languages:
+            description:
+              en: Not Found
+          schema:
+            $ref: '#/definitions/failure'
+        '500':
+          description: Error interno del servidor. Intente de nuevo más tarde.
+          x-ibm-languages:
+            description:
+              en: Internal server error.
+          schema:
+            $ref: '#/definitions/failure'
+        '503':
+          description: >-
+            El servicio no está disponible temporalmente. Intente de nuevo más
+            tarde.El servicio no está disponible temporalmente. Intente de nuevo
+            más tarde.
+          schema:
+            $ref: '#/definitions/failure'
+        default:
+          description: Error inesperado.
+          x-ibm-languages:
+            description:
+              en: Unexpected Error.
+      parameters:
+        - name: requestBody
+          required: true
+          in: body
+          schema:
+            $ref: '#/definitions/requestBody'
+      summary: Esta operación permite consultar a un cliente en las listas de Control.
+      description: Esta operación permite consultar a un cliente en las listas de Control
+    head:
+      responses:
+        '200':
+          description: 200 OK
+      description: Operación head para el monitoreo de la API Customer - Check Control List
+      summary: ''
+    parameters:
+      - name: messageId
+        type: string
+        required: true
+        in: header
+        description: >-
+          UUID para trazabilidad de la sesión. Debe ser proporcionado por el
+          consumidor. -Ejemplo: dc6aef78-a4c3-44-9cab-cf8fcd848f8c
+definitions:
+  failure:
+    type: object
+    required:
+      - meta
+      - errors
+    properties:
+      meta:
+        $ref: '#/definitions/meta'
+      errors:
+        type: array
+        uniqueItems: true
+        items:
+          $ref: '#/definitions/error'
+    additionalProperties: false
+  meta:
+    description: >-
+      Non-standard meta-information that can not be represented realtion with
+      data
+    type: object
+    required:
+      - _messageId
+      - _version
+      - _requestDate
+    properties:
+      _messageId:
+        type: string
+        example: c4e6bd04-5149-11e7-b114-b2f933d5fe66
+      _version:
+        type: string
+        example: '1.0'
+      _requestDate:
+        type: string
+        format: date-time
+        example: '2017-01-24T05:00:00.000Z'
+      _responseSize:
+        type: integer
+        example: 1
+      _clientRequest:
+        type: string
+        example: acxff62e-6f12-42de-9012-3e7304418abd
+    additionalProperties: true
+  topLevelLinks:
+    description: URLs related to the primary data.
+    type: object
+    allOf:
+      - $ref: '#/definitions/links'
+  links:
+    description: A resource object **MAY** contain references to other resource objects
+    type: object
+    properties:
+      self:
+        description: A self member, whose value is a URL for the relationship data
+        type: string
+        example: >-
+          https://..../int/{ambiente}/v2/risk-compliance/models/customer-behavior/customer/actions/check-control-list
+        format: uri
+  headerData:
+    description: The "type" and "id" for each data.
+    type: object
+    required:
+      - type
+      - id
+    properties:
+      type:
+        type: string
+        example: ControlList
+      id:
+        type: string
+    additionalProperties: false
+  error:
+    type: object
+    required:
+      - code
+      - detail
+    properties:
+      id:
+        description: A unique identifier for this particular occurrence of the problem.
+        type: string
+        example: 5f2d287a-3a3f-11e7-a919-92ebcb67fe33
+      href:
+        description: >-
+          A URI that **MAY** yield further details about this particular
+          occurrence of the problem.
+        type: string
+        example: https://tools.ietf.org/html/rfc7231#section-6.5.4
+      status:
+        description: >-
+          The HTTP status code applicable to this problem, expressed as a string
+          value.
+        type: string
+        example: 401
+      code:
+        description: An application-specific error code, expressed as a string value.
+        type: string
+        example: BP401
+      title:
+        description: >-
+          A short, human-readable summary of the problem. It **SHOULD NOT**
+          change from occurrence to occurrence of the problem, except for
+          purposes of localization.
+        type: string
+        example: Not Found
+      detail:
+        description: >-
+          A human-readable explanation specific to this occurrence of the
+          problem.
+        type: string
+        example: Requested resource could not be found
+    additionalProperties: false
+  successResponse:
+    type: object
+    required:
+      - data
+      - meta
+    properties:
+      meta:
+        $ref: '#/definitions/meta'
+      data:
+        type: array
+        items:
+          type: object
+          required:
+            - header
+            - status
+            - system
+            - product
+            - customerDocumentType
+            - customerDocumentId
+            - customerFullName
+            - customerType
+            - thirdPartyControl
+            - customerStatus
+            - state
+            - alerts
+            - message
+            - categories
+            - ofacMessageOther
+          properties:
+            header:
+              $ref: '#/definitions/headerData'
+            status:
+              type: object
+              description: Descripción funcional que indica el estado de la transacción.
+              required:
+                - code
+                - description
+              properties:
+                code:
+                  type: string
+                  maxLength: 3
+                  minLength: 3
+                  description: Corresponde al campo codigo Respuesta.
+                  example: '0000'
+                description:
+                  type: string
+                  maxLength: 500
+                  minLength: 1
+                  description: Corresponde al campo descripcion Respuesta.
+                  example: Exitoso
+            system:
+              type: string
+              maxLength: 10
+              minLength: 1
+              description: Corresponde al campo sistema.
+              example: AW29352_Prometeo
+            product:
+              type: string
+              maxLength: 10
+              minLength: 1
+              description: Corresponde al campo Producto.
+              example: Prometeo
+            customerDocumentType:
+              type: string
+              maxLength: 10
+              minLength: 1
+              description: |
+                Corresponde al campo tipo de documento del cliente.
+                  - CD - Carnet diplomático
+                  - CC - Cédula ciudadanía
+                  - CE - Cédula extranjería
+                  - NIT - NIT
+                  - TI - Tarjeta de identidad
+                  - PAS - Pasaporte
+                  - IEPN - Id del extranjero PN no residente en Colombia
+                  - IEPJ - Id extranjero PJ no residente en Colombia
+                  - FD - Fideicomiso
+                  - RC - Registro civil
+              example: CC
+              enum:
+                - CD
+                - CC
+                - CE
+                - NIT
+                - TI
+                - PAS
+                - IEPN
+                - IEPJ
+                - FD
+                - RC
+            customerDocumentId:
+              type: string
+              maxLength: 15
+              minLength: 1
+              description: Corresponde al campo numero de documento del cliente.
+              example: '123456789'
+            customerFullName:
+              type: string
+              maxLength: 60
+              minLength: 1
+              description: Corresponde al campo nombre completo del cliente.
+              example: Juan Pepe Perez
+            customerType:
+              type: string
+              maxLength: 1
+              minLength: 1
+              description: |
+                Corresponde al campo tipo de cliente.
+                - N - Persona Natural
+                - J - Persona Juridica
+              example: 'N'
+              enum:
+                - 'N'
+                - J
+            thirdPartyControl:
+              type: string
+              maxLength: 45
+              minLength: 0
+              description: Corresponde al campo Control de Terceros.
+              example: Cliente
+            customerStatus:
+              type: string
+              maxLength: 45
+              minLength: 0
+              description: |
+                Corresponde al estado del cliente.
+                - A - Activo
+                - I - Inactivo
+              example: A
+              enum:
+                - A
+                - I
+            state:
+              type: string
+              maxLength: 10
+              minLength: 0
+              description: |
+                Corresponde al campo estado.
+                - Vigente
+                - No vigente
+              example: Vigente
+              enum:
+                - Vigente
+                - No vigente
+            passport:
+              type: string
+              maxLength: 15
+              minLength: 1
+              description: Corresponde al campo pasaporte.
+              example: BD125451
+            alerts:
+              type: string
+              maxLength: 1
+              minLength: 0
+              description: |
+                Corresponde al campo alerta.
+                - 2 - Alerta
+                - 3 - Bloqueo
+                - 5 - Producto no autorizado a consultar Listas de control
+                - 6 - No está en Listas de Control
+              example: 2
+              enum:
+                - '2'
+                - '3'
+                - '5'
+                - '6'
+            message:
+              type: string
+              maxLength: 300
+              minLength: 1
+              description: Corresponde al campo mensaje.
+              example: ALERTA CON GESTION-ENVIAR CORREO A LISTADECONTROL
+            categories:
+              type: string
+              maxLength: 20
+              minLength: 1
+              description: "Corresponde al campo categorias.\n- 1 - LISTA OFAC\n- 2 - REPORTADOS Y TERMINAR RELACION COMERCIAL\n- 3 - REPORTADOS Y MANTENER RELACION COMERCIAL\n- 5 - INFORMACIÓN MEDIOS DE COMUNICACIÓN MASIVOS\n- 7 - TERMINAR RELACION COMERCIAL\n- 9 - VINCULACION SUJETA A GESTION COMERCIAL\n-\t14 - ALERTA BANCOS INTERNACIONALES\n-\t19\tADMINISTRADOS DIRECCION NACIONAL DE ESTUPEFACIENTE\n-\t20\tINVESTIGADOS DE ALTA CONFIDENCIALIDAD\n-\t21\tLISTA CONSOLIDADA ONU\n-\t23\tLISTA EMITIDA BANCO DE LA RESERVA FEDERAL DE EUE\n-\t26\tBANCOS SANCIONADOS POR ORGANISMOS INTERNACIONALES\n-\t27\tREPORTADOS/TERMINAR RELACION CCIAL FIDUCOLOMBIA\n-\t28\tREPORTADOS Y MANTENER RELACION CCIAL FIDUCOLOMBIA\n-\t29\tREPORTADOS/TERMINAR RELACION CCIAL SUFINANCIAMIENT\n-\t30\tREPORTADOS/MANTENER RELACION CCIAL SUFINANCIAMIENT\n-\t31\tREPORTADOS Y TERMINAR RELACION COMERCIAL LEASING\n-\t32\tREPORTADOS Y MANTENER RELACION COMERCIAL LEASING\n- 34\tCLIENTE CON ACTIVIDAD ECONOMICA DE MAYOR RIESGO\n-\t35\tREPORTADOS Y TERMINAR RELACION COMERCIAL FACTORING\n-\t36\tREPORTADOS Y MANTENER RELACION COMERCIAL FACTORING\n-\t38\tPEP-PERSONAS EXPUESTAS PUBLICA/POLICAMENTE\n-\t39\tMAYOR DEBIDA DILIGENCIA\n-\t40\tPOR REQUERIMIENTOS ENTES EXT. DE CONTROL Y FISCAL\n-\t41\tREPORTADOS Y TERMINAR RELACION COMERCIAL SULEASING\n-\t42\tREPORTADOS Y MANTENER RELACION COMERCIAL SULEASING\n-\t43\tREPORTADOS Y TERMINAR RELACION COMERCIAL SUVALOR\n-\t44\tREPORTADOS Y MANTENER RELACION COMERCIAL SUVALOR\n-\t46\tPERSONA FALLECIDA\n-\t50\tEXTRADITADOS\n-\t51\tALERTA DESMOVILIZADOS\n-\t52\tLISTAS INTERNACIONALES\n-\t56\tAKAS OFAC\n-\t60\tEX OFAC\n"
+              example: '35'
+              enum:
+                - '1'
+                - '2'
+                - '3'
+                - '5'
+                - '7'
+                - '9'
+                - '14'
+                - '19'
+                - '20'
+                - '21'
+                - '23'
+                - '26'
+                - '27'
+                - '28'
+                - '29'
+                - '30'
+                - '31'
+                - '32'
+                - '34'
+                - '35'
+                - '36'
+                - '38'
+                - '39'
+                - '40'
+                - '41'
+                - '42'
+                - '43'
+                - '44'
+                - '46'
+                - '50'
+                - '51'
+                - '52'
+                - '56'
+                - '60'
+            ofacMessageOther:
+              type: string
+              maxLength: 50
+              minLength: 0
+              description: |
+                Corresponde al campo mensajeOfacOtras.
+              example: CON
+      links:
+        $ref: '#/definitions/topLevelLinks'
+    additionalProperties: false
+  requestBody:
+    type: object
+    required:
+      - data
+    properties:
+      data:
+        type: array
+        items:
+          type: object
+          properties:
+            system:
+              type: string
+              maxLength: 10
+              minLength: 3
+              example: PROMETEO
+              description: sistema consumidor
+            product:
+              type: string
+              maxLength: 50
+              minLength: 3
+              example: PROMETEOCP
+              description: producto
+            customerDocumentType:
+              type: string
+              maxLength: 50
+              minLength: 2
+              example: CC
+              description: tipo de identificacion
+            customerDocumentId:
+              type: string
+              maxLength: 50
+              minLength: 1
+              example: '123456789'
+              description: numero de identificacion
+            customerFullName:
+              type: string
+              maxLength: 50
+              minLength: 1
+              example: John Doe
+              description: nombre completo
+          required:
+            - system
+            - product
+            - customerDocumentType
+            - customerDocumentId
+    additionalProperties: false
+tags: []
+consumes:
+  - application/vnd.bancolombia.v4+json
+produces:
+  - application/vnd.bancolombia.v4+json
+security:
+  - ClientSecret: []
+    ClientId: []
+x-API-Protocol:
+  Protocols: HTTPS
+x-API-Authors:
+  Design:
+    name: Hector Correa
+    email: hmcorrea@bancolombia.com.co
+  Development:
+    name: ''
+    email: ''
+  Review:
+    name: ''
+    email: ''
+x-ibm-comment: null
