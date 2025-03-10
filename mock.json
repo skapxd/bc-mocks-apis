@@ -463,6 +463,7 @@
               "_version": "1.0",
               "_requestDate": "2025-03-07T12:00:00.000Z"
             },
+            "status": "400",
             "errors": [
               {
                 "code": "BP400",
@@ -482,6 +483,7 @@
               "_version": "1.0",
               "_requestDate": "2025-03-07T12:00:00.000Z"
             },
+          "status": "401",
             "errors": [
               {
                 "code": "BP401",
@@ -501,6 +503,7 @@
               "_version": "1.0",
               "_requestDate": "2025-03-07T12:00:00.000Z"
             },
+            "status":"404",
             "errors": [
               {
                 "code": "BP404",
@@ -519,7 +522,8 @@
               "_messageId": "uuid-failure-500",
               "_version": "1.0",
               "_requestDate": "2025-03-07T12:00:00.000Z"
-            },
+           },
+          "status": "500",
             "errors": [
               {
                 "code": "BP500",
@@ -539,6 +543,7 @@
               "_version": "1.0",
               "_requestDate": "2025-03-07T12:00:00.000Z"
             },
+            "status": "503",
             "errors": [
               {
                 "code": "BP503",
