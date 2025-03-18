@@ -1,0 +1,275 @@
+@baseUrl=http://localhost:8080
+@customerProfilePath=/customer-management/v1/management/CustomerProfile
+@contentType=application/json
+{{
+  $global.body={
+    "identification":{
+      "type": "type",
+      "number": "{override this}",
+    },
+    "acquisition": {
+      "id": "type"
+    }
+  }
+}}
+
+### 200
+{{
+  $global.body.identification.number = "0"
+}}
+
+POST {{baseUrl}}{{customerProfilePath}}
+Content-Type: {{contentType}}
+
+{{$global.body}}
+
+?? status == 200
+
+{{
+  const { equal } = require('assert');
+  test('expect body', () => {
+    equal(response.body, JSON.stringify({
+      "data": {
+        "actionCode": "2",
+        "actionName": "Apertura Producto"
+      }
+    }));
+  });
+}}
+
+### 400
+{{
+  $global.body.identification.number = "1"
+}}
+
+POST {{baseUrl}}{{customerProfilePath}}
+Content-Type: {{contentType}}
+
+{{$global.body}}
+
+?? status == 400
+{{
+  const { equal } = require('assert');
+  test('expect body', () => {
+    equal(response.body, JSON.stringify({
+      "status": 400,
+      "error": "Bad Request",
+      "code": "error-SA404",
+      "message": "El cliente no cuenta con una solicitud de vinculación/actualización activa.",
+      "path": "/customer-management/v1/management/CustomerProfile"
+    }));
+  });
+}}
+
+### 401
+{{
+  $global.body.identification.number = "2"
+}}
+POST {{baseUrl}}{{customerProfilePath}}
+Content-Type: {{contentType}}
+
+{{$global.body}}
+
+?? status == 401
+{{
+  const { equal } = require('assert');
+  test('expect body', () => {
+    equal(response.body, JSON.stringify({
+      "status": 401,
+      "error": "Unauthorized",
+      "code": "error-SA401",
+      "message": "El consumidor no tiene acceso a la información solicitada",
+      "path": "/customer-management/v1/management/CustomerProfile"
+    }));
+  });
+}}
+### 404
+{{
+  $global.body.identification.number = "3"
+}}
+POST {{baseUrl}}{{customerProfilePath}}
+Content-Type: {{contentType}}
+
+{{$global.body}}
+
+?? status == 404
+
+{{
+  const { equal } = require('assert');
+  test('expect body', () => {
+    equal(response.body, JSON.stringify({
+      "status": 404,
+      "error": "Not Found",
+      "code": "error-BP12700891",
+      "message": "el cliente no tiene cuentas del tipo solicitado",
+      "path": "/customer-management/v1/management/CustomerProfile"
+    }));
+  });
+}}
+### 409
+{{
+  $global.body.identification.number = "4"
+}}
+POST {{baseUrl}}{{customerProfilePath}}
+Content-Type: {{contentType}}
+
+{{$global.body}}
+
+?? status == 409
+
+{{
+  const { equal } = require('assert');
+  test('expect body', () => {
+    equal(response.body, JSON.stringify({
+      "status": 409,
+      "error": "Conflict",
+      "code": "error-BP12700871",
+      "message": "el beneficiario se encuentra en lista de control",
+      "path": "/customer-management/v1/management/CustomerProfile"
+    }));
+  });
+}}
+
+### 500
+{{
+  $global.body.identification.number = "5"
+}}
+POST {{baseUrl}}{{customerProfilePath}}
+Content-Type: {{contentType}}
+
+{{$global.body}}
+
+?? status == 500
+{{
+  const { equal } = require('assert');
+  test('expect body', () => {
+    equal(response.body, JSON.stringify({  
+      "status": 500,
+      "error": "Internal Server Error",
+      "code": "error-SP500",
+      "message": "Ha ocurrido un error interno controlado en el servidor.",
+      "path": "/customer-management/v1/management/CustomerProfile"
+    }));
+  });
+}}
+
+### 502
+{{
+  $global.body.identification.number = "6"
+}}
+POST {{baseUrl}}{{customerProfilePath}}
+Content-Type: {{contentType}}
+
+{{$global.body}}
+
+?? status == 502
+{{
+  const { equal } = require('assert');
+  test('expect body', () => {
+    equal(response.body, JSON.stringify({  
+      "status": 502,
+      "error": "Bad Gateway",
+      "code": "error-SP502",
+      "message": "El mensaje de respuesta recibido del servidor es inválido",
+      "path": "/customer-management/v1/management/CustomerProfile"
+    }));
+  });
+}}
+
+### 503
+{{
+  $global.body.identification.number = "7"
+}}
+
+POST {{baseUrl}}{{customerProfilePath}}
+Content-Type: {{contentType}}
+
+{{$global.body}}
+
+?? status == 503
+
+{{
+  const { equal } = require('assert');
+  test('expect body', () => {
+    equal(response.body, JSON.stringify({
+      "status": 503,
+      "error": "Service Unavailable",
+      "code": "error-SP503",
+      "message": "Por problemas tecnicos su transaccion no pudo atenderse en estos momentos, por favor intente mas tarde",
+      "path": "/customer-management/v1/management/CustomerProfile"
+    }));
+  });
+}}
+### 504
+{{
+  $global.body.identification.number = "8"
+}}
+
+POST {{baseUrl}}{{customerProfilePath}}
+Content-Type: {{contentType}}
+
+{{$global.body}}
+
+?? status == 504
+{{
+  const { equal } = require('assert');
+  test('expect body', () => {
+    equal(response.body, JSON.stringify({
+      "status": 504,
+      "error": "Gateway Timeout",
+      "code": "error-SP504",
+      "message": "El proveedor no respondió en tiempo esperado",
+      "path": "/customer-management/v1/management/CustomerProfile"
+    }));
+  });
+}}
+
+### unhandler response api
+{{
+  $global.body.identification.number = "9"
+}}
+POST {{baseUrl}}{{customerProfilePath}}
+Content-Type: {{contentType}}
+
+{{$global.body}}
+
+?? status == 500
+{{
+  const { equal } = require('assert');
+  test('expect body', () => {
+    equal(response.body, JSON.stringify({
+      "status": 500,
+      "error": null,
+      "code": "error404",
+      "message": "Cannot invoke \"java.util.List.isEmpty()\" because the return value of \"co.com.bancolombia.model.exception.ApiErrorResponse.getErrors()\" is null",
+      "path": "/customer-management/v1/management/CustomerProfile"
+    }));
+  });
+}}
+
+### dto invalid
+{{
+  $global.body = {
+  "sessionId": "",
+  "documentType": "",
+  "documentNumber": null
+}
+}}
+POST {{baseUrl}}{{customerProfilePath}}
+Content-Type: {{contentType}}
+
+{{$global.body}}
+
+?? status == 500
+{{
+  const { equal } = require('assert');
+  test('expect body', () => {
+    equal(response.body, JSON.stringify({
+      "status": 500,
+      "error": null,
+      "code": "error404",
+      "message": "Cannot invoke \"co.com.bancolombia.api.dto.customer_profile.request.CustomerProfileRequestDto$IdentificationDto.getType()\" because the return value of \"co.com.bancolombia.api.dto.customer_profile.request.CustomerProfileRequestDto.getIdentification()\" is null",
+      "path": "/customer-management/v1/management/CustomerProfile"
+    }));
+  });
+}}

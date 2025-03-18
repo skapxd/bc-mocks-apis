@@ -1,0 +1,284 @@
+@baseUrl=http://localhost:8080
+@customerProfilePath=/customer-management/v1/management/CustomerValidation
+@contentType=application/json
+{{
+  $global.body={
+    "customerFullName":"TestName",
+    "customerDocumentType": "TestType",
+    "customerDocumentId": "{override this}",
+  }
+}}
+
+### 200
+{{
+  $global.body.customerDocumentId = "0"
+}}
+
+POST {{baseUrl}}{{customerProfilePath}}
+Content-Type: {{contentType}}
+
+{{$global.body}}
+
+?? status == 200
+{{
+  const { equal } = require('assert');
+  test('expect body', () => {
+    equal(response.body, JSON.stringify({
+      "alerts": "2",
+      "state": "Vigente",
+      "message": "Consulta exitosa",
+      "category": "35"
+    }));
+  });
+}}
+
+### 400
+{{
+  $global.body.customerDocumentId = "1"
+}}
+
+POST {{baseUrl}}{{customerProfilePath}}
+Content-Type: {{contentType}}
+
+{{$global.body}}
+
+?? status == 400
+{{
+  const { equal } = require('assert');
+  test('expect body', () => {
+    equal(response.body, JSON.stringify({
+      "status": 400,
+      "error": "Bad Request",
+      "code": "error-BP400",
+      "message": "La solicitud no pudo ser entendida o hacen falta parámetros requeridos.",
+      "path": "/customer-management/v1/management/CustomerValidation"
+    }));
+  });
+}}
+
+### 401
+{{
+  $global.body.customerDocumentId = "2"
+}}
+POST {{baseUrl}}{{customerProfilePath}}
+Content-Type: {{contentType}}
+
+{{$global.body}}
+
+?? status == 401
+{{
+  const { equal } = require('assert');
+  test('expect body', () => {
+    equal(response.body, JSON.stringify({
+      "status": 401,
+      "error": "Unauthorized",
+      "code": "error-BP401",
+      "message": "La autorización ha fallado o el usuario no tiene permisos para la operación solicitada.",
+      "path": "/customer-management/v1/management/CustomerValidation"
+    }));
+  });
+}}
+
+### 404
+{{
+  $global.body.customerDocumentId = "3"
+}}
+POST {{baseUrl}}{{customerProfilePath}}
+Content-Type: {{contentType}}
+
+{{$global.body}}
+
+?? status == 404
+{{
+  const { equal } = require('assert');
+  test('expect body', () => {
+    equal(response.body, JSON.stringify({
+      "status": 404,
+      "error": "Not Found",
+      "code": "error-BP404",
+      "message": "El recurso solicitado no fue encontrado por el sistema.",
+      "path": "/customer-management/v1/management/CustomerValidation"
+    }));
+  });
+}}
+
+### 409
+{{
+  $global.body.customerDocumentId = "4"
+}}
+POST {{baseUrl}}{{customerProfilePath}}
+Content-Type: {{contentType}}
+
+{{$global.body}}
+
+?? status == 409
+{{
+  const { equal } = require('assert');
+  test('expect body', () => {
+    equal(response.body, JSON.stringify({
+      "status": 409,
+      "error": "Conflict",
+      "code": "error-BP12700871",
+      "message": "el beneficiario se encuentra en lista de control",
+      "path": "/customer-management/v1/management/CustomerValidation"
+    }));
+  });
+}}
+
+### 500
+{{
+  $global.body.customerDocumentId = "5"
+}}
+POST {{baseUrl}}{{customerProfilePath}}
+Content-Type: {{contentType}}
+
+{{$global.body}}
+
+?? status == 500
+{{
+  const { equal } = require('assert');
+  test('expect body', () => {
+    equal(response.body, JSON.stringify({
+      "status": 500,
+      "error": "Internal Server Error",
+      "code": "error-SP500",
+      "message": "Ha ocurrido un error interno controlado en el servidor.",
+      "path": "/customer-management/v1/management/CustomerValidation"
+    }));
+  });
+}}
+
+### 502
+{{
+  $global.body.customerDocumentId = "6"
+}}
+POST {{baseUrl}}{{customerProfilePath}}
+Content-Type: {{contentType}}
+
+{{$global.body}}
+
+?? status == 502
+{{
+  const { equal } = require('assert');
+  test('expect body', () => {
+    equal(response.body, JSON.stringify({  
+      "status": 502,
+      "error": "Bad Gateway",
+      "code": "error-SP502",
+      "message": "El mensaje de respuesta recibido del servidor es inválido",
+      "path": "/customer-management/v1/management/CustomerValidation"
+    }));
+  });
+}}
+
+### 503
+{{
+  $global.body.customerDocumentId = "7"
+}}
+
+POST {{baseUrl}}{{customerProfilePath}}
+Content-Type: {{contentType}}
+
+{{$global.body}}
+
+?? status == 503
+{{
+  const { equal } = require('assert');
+  test('expect body', () => {
+    equal(response.body, JSON.stringify({
+      "status": 503,
+      "error": "Service Unavailable",
+      "code": "error-SP503",
+      "message": "Por problemas tecnicos su transaccion no pudo atenderse en estos momentos, por favor intente mas tarde",
+      "path": "/customer-management/v1/management/CustomerValidation"
+    }));
+  });
+}}
+
+### 504
+{{
+  $global.body.customerDocumentId = "8"
+}}
+
+POST {{baseUrl}}{{customerProfilePath}}
+Content-Type: {{contentType}}
+
+{{$global.body}}
+
+?? status == 504
+{{
+  const { equal } = require('assert');
+  test('expect body', () => {
+    equal(response.body, JSON.stringify({
+      "status": 504,
+      "error": "Gateway Timeout",
+      "code": "error-SP504",
+      "message": "El proveedor no respondió en tiempo esperado",
+      "path": "/customer-management/v1/management/CustomerValidation"
+    }));
+  });
+}}
+
+### unhandler response api
+{{
+  $global.body.customerDocumentId = "9"
+}}
+POST {{baseUrl}}{{customerProfilePath}}
+Content-Type: {{contentType}}
+
+{{$global.body}}
+
+?? status == 500
+{{
+  const { equal } = require('assert');
+  test('expect body', () => {
+    equal(response.body, JSON.stringify({
+      "status": 500,
+      "error": null,
+      "code": "error404",
+      "message": "Cannot invoke \"java.util.List.isEmpty()\" because the return value of \"co.com.bancolombia.model.exception.ApiErrorResponse.getErrors()\" is null",
+      "path": "/customer-management/v1/management/CustomerValidation"
+    }));
+  });
+}}
+
+### dto invalid
+{{
+  $global.body = {
+  "sessionId": "",
+  "documentType": "",
+  "documentNumber": null
+}
+}}
+POST {{baseUrl}}{{customerProfilePath}}
+Content-Type: {{contentType}}
+
+{{$global.body}}
+
+?? status == 400
+{{
+  const { equal } = require('assert');
+  test('expect body', () => {
+    equal(response.body, JSON.stringify({
+      "status": 400,
+      "error": "Bad Request",
+      "code": "VALIDATION_ERROR",
+      "message": "Validation failed",
+      "path": "/customer-management/v1/management/CustomerValidation",
+      "errors": [
+        {
+          "field": "customerDocumentId",
+          "message": "The customerDocumentId is required"
+        },
+        {
+          "field": "customerFullName",
+          "message": "The customerFullName is required"
+        },
+        {
+          "field": "customerDocumentType",
+          "message": "The customerDocumentType is required"
+        }
+      ]
+    }));
+  });
+}}
