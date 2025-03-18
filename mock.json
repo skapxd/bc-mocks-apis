@@ -424,7 +424,9 @@
       "responses": [
         {
           "in": "body",
-          "where": { "data[0].customerDocumentId": "0" },
+          "where": {
+            "data[0].customerDocumentId": "0"
+          },
           "status": "200",
           "response": {
             "meta": {
@@ -434,8 +436,14 @@
             },
             "data": [
               {
-                "header": { "type": "ControlList", "id": "cl-123" },
-                "status": { "code": "0000", "description": "Exitoso" },
+                "header": {
+                  "type": "ControlList",
+                  "id": "cl-123"
+                },
+                "status": {
+                  "code": "0000",
+                  "description": "Exitoso"
+                },
                 "system": "AW29352_Prometeo",
                 "product": "Prometeo",
                 "customerDocumentType": "CC",
@@ -455,7 +463,9 @@
         },
         {
           "in": "body",
-          "where": { "data[0].customerDocumentId": "1" },
+          "where": {
+            "data[0].customerDocumentId": "1"
+          },
           "status": "400",
           "response": {
             "meta": {
@@ -475,7 +485,9 @@
         },
         {
           "in": "body",
-          "where": { "data[0].customerDocumentId": "2" },
+          "where": {
+            "data[0].customerDocumentId": "2"
+          },
           "status": "401",
           "response": {
             "meta": {
@@ -483,7 +495,7 @@
               "_version": "1.0",
               "_requestDate": "2025-03-07T12:00:00.000Z"
             },
-          "status": "401",
+            "status": "401",
             "errors": [
               {
                 "code": "BP401",
@@ -495,7 +507,9 @@
         },
         {
           "in": "body",
-          "where": { "data[0].customerDocumentId": "3" },
+          "where": {
+            "data[0].customerDocumentId": "3"
+          },
           "status": "404",
           "response": {
             "meta": {
@@ -503,7 +517,7 @@
               "_version": "1.0",
               "_requestDate": "2025-03-07T12:00:00.000Z"
             },
-            "status":"404",
+            "status": "404",
             "errors": [
               {
                 "code": "BP404",
@@ -515,40 +529,130 @@
         },
         {
           "in": "body",
-          "where": { "data[0].customerDocumentId": "4" },
-          "status": "500",
+          "where": {
+            "data[0].customerDocumentId": "4"
+          },
+          "status": "409",
           "response": {
             "meta": {
-              "_messageId": "uuid-failure-500",
-              "_version": "1.0",
-              "_requestDate": "2025-03-07T12:00:00.000Z"
-           },
-          "status": "500",
+              "_systemId": "AW1286",
+              "_messageId": "c4e6bd04-5149-11e7-b114-b2f933d5fe66",
+              "_version": "1",
+              "_requestDate": "2017-01-24T05:00:00.000Z",
+              "_service": "CustomerAcquisition - Information",
+              "_operation": "retrieve-scenario-fields"
+            },
+            "status": 409,
+            "title": "Conflict",
             "errors": [
               {
-                "code": "BP500",
-                "title": "Error Interno",
-                "detail": "Error interno del servidor. Intente de nuevo más tarde."
+                "code": "BP12700871",
+                "title": "el beneficiario se encuentra en lista de control",
+                "detail": "el beneficiario se encuentra en lista de control"
               }
             ]
           }
         },
         {
           "in": "body",
-          "where": { "data[0].customerDocumentId": "5" },
+          "where": {
+            "data[0].customerDocumentId": "5"
+          },
+          "status": "500",
+          "response": {
+            "meta": {
+              "_systemId": "AW1286",
+              "_messageId": "c4e6bd04-5149-11e7-b114-b2f933d5fe66",
+              "_version": "1",
+              "_requestDate": "2017-01-24T05:00:00.000Z",
+              "_service": "CustomerAcquisition - Information",
+              "_operation": "retrieve-scenario-fields"
+            },
+            "status": 500,
+            "title": "Internal Server Error",
+            "errors": [
+              {
+                "code": "SP500",
+                "title": "Ha ocurrido un error interno controlado en el servidor.",
+                "detail": "Ha ocurrido un error interno controlado en el servidor."
+              }
+            ]
+          }
+        },
+        {
+          "in": "body",
+          "where": {
+            "data[0].customerDocumentId": "6"
+          },
+          "status": "502",
+          "response": {
+            "meta": {
+              "_systemId": "AW1286",
+              "_messageId": "c4e6bd04-5149-11e7-b114-b2f933d5fe66",
+              "_version": "1",
+              "_requestDate": "2017-01-24T05:00:00.000Z",
+              "_service": "CustomerAcquisition - Information",
+              "_operation": "retrieve-scenario-fields"
+            },
+            "status": 502,
+            "title": "Bad Gateway",
+            "errors": [
+              {
+                "code": "SP502",
+                "title": "El mensaje de respuesta recibido del servidor es inválido",
+                "detail": "El mensaje de respuesta recibido del servidor es inválido"
+              }
+            ]
+          }
+        },
+        {
+          "in": "body",
+          "where": {
+            "data[0].customerDocumentId": "7"
+          },
           "status": "503",
           "response": {
             "meta": {
-              "_messageId": "uuid-failure-503",
-              "_version": "1.0",
-              "_requestDate": "2025-03-07T12:00:00.000Z"
+              "_systemId": "AW1286",
+              "_messageId": "c4e6bd04-5149-11e7-b114-b2f933d5fe66",
+              "_version": "1",
+              "_requestDate": "2017-01-24T05:00:00.000Z",
+              "_service": "CustomerAcquisition - Information",
+              "_operation": "retrieve-scenario-fields"
             },
-            "status": "503",
+            "status": 503,
+            "title": "Service Unavailable",
             "errors": [
               {
-                "code": "BP503",
-                "title": "Servicio No Disponible",
-                "detail": "El servicio no está disponible temporalmente. Intente de nuevo más tarde."
+                "code": "SP503",
+                "title": "Por problemas tecnicos su transaccion no pudo atenderse en estos momentos, por favor intente mas tarde",
+                "detail": "Por problemas tecnicos su transaccion no pudo atenderse en estos momentos, por favor intente mas tarde"
+              }
+            ]
+          }
+        },
+        {
+          "in": "body",
+          "where": {
+            "data[0].customerDocumentId": "8"
+          },
+          "status": "504",
+          "response": {
+            "meta": {
+              "_systemId": "AW1286",
+              "_messageId": "c4e6bd04-5149-11e7-b114-b2f933d5fe66",
+              "_version": "1",
+              "_requestDate": "2017-01-24T05:00:00.000Z",
+              "_service": "CustomerAcquisition - Information",
+              "_operation": "retrieve-scenario-fields"
+            },
+            "status": 504,
+            "title": "Gateway Timeout",
+            "errors": [
+              {
+                "code": "SP504",
+                "title": "El proveedor no respondió en tiempo esperado",
+                "detail": "El proveedor no respondió en tiempo esperado"
               }
             ]
           }
